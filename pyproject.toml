@@ -68,7 +68,10 @@ myst-parser = {version = "^0.15"}
 [tool.semantic_release]
 branch = "main"
 version_toml = "pyproject.toml:tool.poetry.version"
-version_variable = "celery_utils/__init__.py:__version__"
+version_variable = [
+    "celery_utils/__init__.py:__version__",
+    "docs/source/conf.py:version",
+]
 build_command = "pip install poetry && poetry build"
 
 [tool.pytest.ini_options]

@@ -18,8 +18,9 @@
 # -- Project information -----------------------------------------------------
 
 project = "celery-utils"
-copyright = "2021, Free Law Project"
+copyright = "2020, Free Law Project"
 author = "Free Law Project"
+version = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
