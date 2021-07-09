@@ -1,33 +1,49 @@
 [tool.poetry]
+name = "celery-utils"
+version = "0.1.0"
+description = "A collection of reusable Celery utilities"
 authors = ["Free Law Project <info@free.law>"]
-classifiers = [
-  "Development Status :: 5 - Production/Stable",
-  "Intended Audience :: Developers",
-  "Natural Language :: English",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
-  "Topic :: Software Development :: Libraries :: Python Modules",
-]
-description = "{{PROJECT_DESCRIPTION}}"
-keywords = ["legal", "courts"]
-license = "BSD-2-Clause"
 maintainers = ["Free Law Project <info@free.law>"]
-name = "{{PROJECT_NAME}}"
+keywords = ["celery", "celery4", "celery5", "django"]
+license = "BSD-2-Clause"
 readme = "README.md"
-repository = "https://github.com/freelawproject/{{PROJECT_NAME}}"
-version = "0.0.1"
+repository = "https://github.com/freelawproject/celery-utils"
+documentation = "https://celery-utils.readthedocs.io"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [
+    { include = "celery_utils" },
+]
 
 [tool.poetry.urls]
+"Bug Tracker" = "https://github.com/freelawproject/celery-utils/issues"
+"Changelog" = "https://celery-utils.readthedocs.io/changelog.html"
+"Documentaion" = "https://celery-utils.readthedocs.io"
 "Organisation Homepage" = "https://free.law/"
 
 [tool.poetry.dependencies]
 python = "^3.7"
+celery = {version = ">=4.0.0,<6.0.0"}
+
+
+[tool.poetry.extras]
+docs = [
+    "myst-parser",
+    "sphinx",
+    "sphinx-rtd-theme",
+]
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"
@@ -37,6 +53,26 @@ mypy = "^0.910"
 pylint = "^2.9.3"
 wheel = "^0.35.1"
 pylint-json2html = "^0.3.0"
+pytest = "^6.1.2"
+pytest-cov = "^2.10.1"
+pyupgrade = {version = "^2.7.4", python = "^3.7.9"}
+tox = "^3.20.1"
+coverage = "^5.5"
+
+# Documentation Dependencies
+Sphinx = {version = "^4.0.0", optional = true}
+sphinx-rtd-theme = {version = "^0.5.0", optional = true}
+myst-parser = {version = "^0.15.0", optional = true}
+
+
+[tool.semantic_release]
+branch = "main"
+version_toml = "pyproject.toml:tool.poetry.version"
+version_variable = "celery_utils/__init__.py:__version__"
+build_command = "pip install poetry && poetry build"
+
+[tool.pytest.ini_options]
+addopts = "-v -Wdefault --cov=celery_utils"
 
 [tool.black]
 include = '''.*\.pyi?$'''
@@ -46,12 +82,34 @@ line-length = 79
 [tool.isort]
 profile = "black"
 line_length = 79
+known_first_party = ["celery_utils", "tests"]
 
 [tool.pylint.messages_control]
 disable = "C0330, C0326"
 
 [tool.pylint.format]
 max-line-length = "79"
+
+[tool.coverage.run]
+branch = true
+parallel = true
+concurrency = [
+    "multiprocessing"
+]
+omit = [
+   "*/tests/*",
+   "*/.pytest_cache/*",
+   "*/.tox/*",
+]
+
+
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
