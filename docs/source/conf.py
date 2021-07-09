@@ -20,7 +20,7 @@
 project = "celery-utils"
 copyright = "2020, Free Law Project"
 author = "Free Law Project"
-version = "0.1.0"
+version = "0.2.0"
 
 
 # -- General configuration ---------------------------------------------------

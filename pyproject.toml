@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "celery-utils"
-version = "0.1.0"
+version = "0.2.0"
 description = "A collection of reusable Celery utilities"
 authors = ["Free Law Project <info@free.law>"]
 maintainers = ["Free Law Project <info@free.law>"]
